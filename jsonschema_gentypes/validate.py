@@ -56,7 +56,8 @@ def _extend_with_default(
 def validate_error(
     filename: str, data_file: Union[TextIO, str], schema: Dict[str, Any], default: bool = True
 ) -> Tuple[List[str], Dict[str, Any]]:
-    data = ruamel.yaml.round_trip_load(data_file)  # type: ignore
+    yaml = ruamel.yaml.YAML()  # type: ignore
+    data = yaml.load(data_file)
 
     schema_ref = schema.get("$schema", "default")
     schema_match = re.match(r"https?\:\/\/json\-schema\.org\/(.*)\/schema", schema_ref)
