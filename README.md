@@ -4,7 +4,9 @@ Tools to generate Python types based on TypeDict from a JSON schema
 
 ## Quick start
 
-install:
+Requires python 3.8
+
+Install:
 
 ```bash
 python3 -m pip install --user jsonschema-gentype
@@ -14,6 +16,12 @@ Convert a JSON schema to a Python file contains the types
 
 ```bash
 jsonschema-gentype --json-schema=<JSON schema> --python=<destination Python>
+```
+
+## With Docker
+
+```bash
+docker run --rm --user=$(id --user) --volume=$(pwd):/src camptocamp/jsonschema-gentypes
 ```
 
 ## Config file

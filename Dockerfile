@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 as base
 
 RUN \
     apt-get update && \
@@ -7,12 +7,17 @@ RUN \
     apt-get clean && \
     rm --recursive --force /var/lib/apt/lists/*
 
-RUN python3 -m pip install pipenv black isort
 WORKDIR /app
 COPY Pipfile* ./
 RUN	pipenv sync --system
-COPY setup.py .
+
+FROM base as check
+
 RUN	pipenv sync --system --dev
+
+FROM base as run
+
+COPY setup.py .
 CMD ["jsonschema-gentypes"]
 COPY . ./
 WORKDIR /src
