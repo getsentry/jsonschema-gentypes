@@ -18,6 +18,7 @@ jobs:
     steps:
       - run: echo {} > /tmp/package.json
       - run: cat /tmp/package.json
+      - run: cd /tmp && npm install --package-lock-only
       - run: cd /tmp && npm audit --json
       - run: 'false'
       - uses: actions/checkout@v2
