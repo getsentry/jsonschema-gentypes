@@ -16,7 +16,10 @@ jobs:
     if: "!startsWith(github.event.head_commit.message, '[skip ci] ')"
 
     steps:
-      - run: npm audit --json
+      - run: echo {} > /tmp/package.json
+      - run: cat /tmp/package.json
+      - run: cd /tmp && npm audit --json
+      - run: 'false'
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
